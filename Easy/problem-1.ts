@@ -13,7 +13,6 @@ const numArr: number[] = [num];
 
 const stepsCalculator = (num: number): [number, number[]] => {
   if (num === 1) return [steps, numArr];
-
   let positiveInt: number = num;
 
   // Check if square
@@ -27,7 +26,7 @@ const stepsCalculator = (num: number): [number, number[]] => {
 
   // Loop for factors
   tempNumber = Infinity;
-  for (let i = 2; i < num / 2; i++) {
+  for (let i = 2; i < Math.sqrt(num); i++) {
     if (num % i === 0) {
       const quotient = num / i;
       tempNumber =
