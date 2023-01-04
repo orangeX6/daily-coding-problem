@@ -44,9 +44,9 @@ function deleteAndEarn(nums: number[]): number {
     prev = 0,
     value = 0;
   for (let i = min; i < max + 1; i++) {
-    cur = value + (numberMap.get(i) ?? 0); // 2 5 12
-    value = Math.max(value, prev); // 2 5 12
-    prev = cur; // 2 5 12
+    cur = value + (numberMap.get(i) ?? 0);
+    value = Math.max(value, prev);
+    prev = cur;
   }
 
   return Math.max(value, cur);
