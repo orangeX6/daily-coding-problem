@@ -26,14 +26,14 @@ Explanation: Both 30 and 32 are peak elements so [1,1] and [2,2] are both accept
  
 */
 
-function findPeakGrid(mat: number[][]): number[] {
-  const flatMat = mat.flat();
-  const index = flatMat.indexOf(Math.max(...flatMat));
+// function findPeakGrid(mat: number[][]): number[] {
+//   const flatMat = mat.flat();
+//   const index = flatMat.indexOf(Math.max(...flatMat));
 
-  const m = Math.floor(index / mat[0].length);
-  const n = index % mat[0].length;
-  return [m, n];
-}
+//   const m = Math.floor(index / mat[0].length);
+//   const n = index % mat[0].length;
+//   return [m, n];
+// }
 
 // function findPeakGrid(mat: number[][]): number[] {
 //   const maxNum = Math.max(...mat.flat());
@@ -45,6 +45,33 @@ function findPeakGrid(mat: number[][]): number[] {
 //   }
 //   return [0, 0];
 // }
+
+function findPeakGrid(mat: number[][]): [Number, Number] {
+  let startRow = 0,
+    endRow = mat.length - 1;
+
+  while (startRow <= endRow) {
+    let midRow = startRow + Math.floor((endRow - startRow) / 2),
+      resultVal = 0;
+
+    for (let i = 1; i < mat[0].length; i++) {
+      resultVal = mat[midRow][i] >= mat[midRow][resultVal] ? i : resultVal;
+    }
+
+    const validTop =
+      midRow - 1 >= startRow &&
+      mat[midRow - 1][resultVal] >= mat[midRow][resultVal];
+    const validBottom =
+      midRow + 1 <= endRow &&
+      mat[midRow + 1][resultVal] >= mat[midRow][resultVal];
+
+    if (!validBottom && !validTop) return [midRow, resultVal];
+    else if (validTop) endRow = midRow - 1;
+    else startRow = midRow + 1;
+  }
+
+  return [-1, -1];
+}
 
 console.log(
   findPeakGrid([
